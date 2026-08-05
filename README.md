@@ -1,2 +1,2 @@
 # DW2-FatecRegistro
-Desenvolvimento Web II
+Material das Aulas de Desenvolvimento Web II | 2º Semestre de 2026.
