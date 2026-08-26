@@ -24,3 +24,22 @@ document.write(`<p> O carro ${carroPopular.marca}
     , modelo ${carroPopular.modelo} é do ano 
     ${carroPopular.ano} e quando ele buzina faz 
     ${carroPopular.buzinar()} </p>`);
+
+// CRIANDO UMA NOVA INSTÂNCIA: CARRO CONVERSÍVEL
+const carroConversivel = new Carro();
+carroConversivel.marca = "Chevrolet";
+carroConversivel.modelo = "Camaro";
+carroConversivel.ano = "2026";
+
+//ADICIONANDO UM NOVO ATRIBUTO (NÃO PREVISTO NA CLASSE)
+carroConversivel.corNeon = "azul";
+//ADICIONANDO UM NOVO MÉTODO (NÃO PREVISTO NA CLASSE)
+carroConversivel.turbo = function () {
+  return "Vrummm! O carro está acelerando!!!";
+};
+
+document.writeln(
+  `O carro ${carroConversivel.marca} ${carroConversivel.modelo} tem neon da cor ${carroConversivel.corNeon}.`,
+);
+
+document.writeln(`<p>${carroConversivel.turbo()}</p>`);
