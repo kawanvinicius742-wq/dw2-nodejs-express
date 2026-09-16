@@ -1,0 +1,24 @@
+// IMPORTANDO O FRAMEWORK EXPRESS
+import express from "express";
+// router() : método do Express para criar rotas
+const rota = express.Router()
+
+// ROTA DE PRODUTOS
+rota.get("/produtos", (req, res) => {
+  // res.send("<h1>Página de produtos</h1>")
+  //Lista de produtos (dados mockados)
+  //Futuramente os dados virão do banco de dados
+  //Array de objetos
+  const produtos = [
+    { nome: "Computador", marca: "Lenovo", preco: 3500 },
+    { nome: "Celular", marca: "Samsung", preco: 4000 },
+    { nome: "Notebook", marca: "Dell", preco: 5100 },
+    { nome: "Tablet", marca: "Asus", preco: 2400 },
+  ];
+  res.render("produtos", {
+    // Enviando a lista de produtos para página
+    produtos: produtos,
+  });
+});
+// Exportando o módulo
+export default rota;

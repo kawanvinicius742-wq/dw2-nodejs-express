@@ -1,0 +1,23 @@
+<%- include ('partials/header.ejs') %>
+<!-- Importando a navbar -->
+<%- include ('partials/navbar.ejs') %>
+
+    <!-- <a href="/"><< Voltar </a> -->
+    <br>
+    <h4 style="text-align: center;">Clientes</h4>
+
+    <!-- forEach dentro de TABELA -->
+     <table border="1">
+        <tr>
+            <th width="150px">Cliente</th>
+            <th>CPF</th>
+        </tr>
+        <!-- forEach -->
+         <% clientes.forEach(cliente => { %>
+            <tr>
+                <td><%= cliente.nome %></td>
+                <td><%= cliente.cpf%></td>
+            </tr>
+      <% }) %>
+     </table>
+    <%- include ('partials/footer.ejs') %>
