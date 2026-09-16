@@ -1,0 +1,20 @@
+// IMPORTANDO O FRAMEWORK EXPRESS
+import express from "express";
+// router() : método do Express para criar rotas
+const rota = express.Router()
+
+// ROTA PEDIDOS
+rota.get("/pedidos",function(req,res){
+    const pedidos = [
+        {numero: "983721931", valor: 1200},
+        {numero: "983721932", valor: 900},
+        {numero: "983721933", valor: 3200},
+        {numero: "983721934", valor: 150}
+    ]
+    res.render("pedidos", {
+        pedidos: pedidos
+    })
+})
+
+// Exportando o módulo
+export default rota;
