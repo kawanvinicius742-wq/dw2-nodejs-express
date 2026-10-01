@@ -3,13 +3,13 @@
 import Sequelize from "sequelize";
 
 const connection = new Sequelize({
-    //Dados de conexão
-    dialect: 'mysql',
-    host: 'localhost',
-    username: 'root',
-    password: '',
-    database: 'loja',
-    timezone: '-03:00'
+  //Dados de conexão
+  dialect: "mysql",
+  host: "localhost",
+  username: "root",
+  password: "0612@2025$",
+  database: "loja",
+  timezone: "-03:00",
 });
 
 // Exportando o módulo
