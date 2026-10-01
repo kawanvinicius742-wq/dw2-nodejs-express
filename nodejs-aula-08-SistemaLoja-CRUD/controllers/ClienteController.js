@@ -1,36 +1,109 @@
-// IMPORTANDO O FRAMEWORK EXPRESS
 import express from "express";
-
-// importando o model
+// Importando o model
 import Cliente from "../models/Clientes.js";
 
-// router() : método do Express para criar rotas
 const rota = express.Router();
 
 // ROTA CLIENTES
 rota.get("/clientes", function (req, res) {
-  // const clientes = [
-  //     {nome: "Ana Silva", cpf: "123.456.789-00", endereco: "Rua das Flores, 123, Bairro Jardim Primavera, Cidade Felicidade, Estado do Sonho, CEP: 12345-678"},
-  //     {nome: "Pedro Almeida", cpf: "987.654.321-00", endereco: "Avenida Central, 456, Bairro Centro, Cidade Nova, Estado da Esperança, CEP: 98765-432"},
-  //     {nome: "Marina Oliveira", cpf: "456.789.123-00", endereco: "Travessa dos Sonhos, 789, Bairro Vista Linda, Cidade Sol Nascente, Estado da Harmonia, CEP: 54321-987"},
-  //     {nome: "Rafael Santos", cpf: "321.654.987-00", endereco: "Praça da Amizade, 321, Bairro Bela Vista, Cidade Alegria, Estado da Serenidade, CEP: 87654-321"}
-  // ]
-
-  // SELECIONANDO TODOS OS CLIENTES DO BANCO DE DADOS (PROMISSE)
+  // Selecionando todos os clientes do banco de dados
   Cliente.findAll()
     .then((clientes) => {
       res.render("clientes", {
-        // ENVIANDO A LISTA DE CLIENTES PARA A PÁGINA HTML
+        // Enviando a lista de clientes para a página HTML
         clientes: clientes,
       });
     })
     .catch((error) => {
       console.log(`Ocorreu um erro ao listar os clientes. Erro: ${error}`);
     });
-  // res.render("clientes", {
-  //     clientes : clientes
-  // })
 });
 
-// Exportando o módulo
+/* --- */
+// Rota de cadastro de clientes
+rota.post("/clientes/cadastrar", (req, res) => {
+  // Capturando os dados vindo do formulário e gravando as variáveis
+  const nome = req.body.nome;
+  const cpf = req.body.cpf;
+  const endereco = req.body.endereco;
+  // Chamando o model para gravar os dados no banco
+
+  // Equivalente ao INSERT INTO...
+  Cliente.create({
+    // NOME DA COLUNA / VARIAVEL
+    nome: nome,
+    cpf: cpf,
+    endereco: endereco,
+  })
+    .then(() => {
+      res.redirect("/clientes");
+    })
+    .catch((error) => {
+      console.log(`Ocorreu um erro ao cadastrar o cliente. Erro: ${error}`);
+    });
+});
+/* --- */
+
+// ROTA PARA EXCLUIR UM CLIENTE
+// :id -> CRIA UM PARÂMETRO PRA ROTA
+rota.get("/clientes/excluir/:id", (req, res) => {
+  //CRIANDO UMA VARIÁVEL PARA ARMAZENAR O PARÂMETRO QUE CHEGA PELA URL
+  const id = req.params.id;
+
+  //CHAMANDO O MODEL E PEDINDO PARA EXCLUIR O CLIENTE
+  Cliente.destroy({
+    where: {
+      id: id,
+    },
+  })
+    .then(() => {
+      res.redirect("/clientes");
+    })
+    .catch((error) => {
+      console.log(`Ocorreu um erro ao excluir o cliente. Erro: ${error}.`);
+    });
+});
+
+// ROTA DE EDIÇÃO DE CLIENTE
+rota.get("/clientes/editar/:id", (req, res) => {
+  //COLETANDO O PARÂMENTRO DE URL
+  const id = req.params.id;
+  //BUSCANDO O CLIENTE NO BANCO PELA ID
+  Cliente.findByPk(id)
+    .then((cliente) => {
+      res.render("clienteEditar", {
+        //ENVIANDO UM OBJETO COM OS DADOS DO CLIENTE PARA A PÁGINA
+        cliente: cliente,
+      });
+    })
+    .catch((error) => {
+      console.log(`Ocorreu um erro ao buscar o cliente. Erro ${error}`);
+    });
+});
+
+// ROTA QUE ALTERA UM CLIENTE NO BANCO DE DADOS
+rota.post("/clientes/alterar", (req, res) => {
+  //COLETANDO OS DADOS DO FORMULÁRIO
+  const id = req.body.id;
+  const nome = req.body.nome;
+  const cpf = req.body.cpf;
+  const endereco = req.body.endereco;
+
+  //CHAMANDO O MODEL E PEDINDO PARA ALTERAR NO BANCO DE DADOS
+  Cliente.update(
+    {
+      nome: nome,
+      cpf: cpf,
+      endereco: endereco,
+    },
+    { where: { id: id } },
+  )
+    .then(() => {
+      res.redirect("/clientes");
+    })
+    .catch((error) => {
+      console.log(`Ocorreu um erro ao alterar o cliente. Erro: ${error}`);
+    });
+});
+
 export default rota;

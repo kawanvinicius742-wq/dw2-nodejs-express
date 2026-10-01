@@ -17,11 +17,13 @@ import PedidoController from "./controllers/PedidoController.js";
 // Importando o Controller de PRODUTO
 import ProdutoController from "./controllers/ProdutoController.js";
 
+//Importando Models
 import Cliente from "./models/Clientes.js";
 import Pedido from "./models/Pedidos.js";
 import Produto from "./models/Produtos.js";
 
-
+//Configurando o express para permitir através de formulários
+app.use(express.urlencoded({ extended: false }));
 
 // Define o EJS como Renderizador de páginas
 app.set("view engine", "ejs");

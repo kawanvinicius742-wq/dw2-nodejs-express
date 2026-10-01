@@ -20,11 +20,11 @@ const Cliente = connection.define("clientes", {
   endereco: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 // O MÉTODO .SYNC() SINCRONIZA A ESTRUTURA DO MODEL COM A TABELA NO BANCO DE DADOS
 // force : false -> sincroniza a tabelas somente na primeira vez(somente se não existir)
-Cliente.sync({force: false})
+Cliente.sync({ force: false });
 
 // Exportando o módulo
 export default Cliente;
